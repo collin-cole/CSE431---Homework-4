@@ -1,0 +1,141 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import timeit
+
+
+
+def insertionSort(arr):
+ 
+    # Traverse through 1 to len(arr)
+    for i in range(1, len(arr)):
+ 
+        key = arr[i]
+ 
+        # Move elements of arr[0..i-1], that are
+        # greater than key, to one position ahead
+        # of their current position
+        j = i-1
+        while j >=0 and key < arr[j] :
+                arr[j+1] = arr[j]
+                j -= 1
+        arr[j+1] = key
+
+def mergeSort(arr):
+    if len(arr) > 1:
+ 
+         # Finding the mid of the array
+        mid = len(arr)//2
+ 
+        # Dividing the array elements
+        L = arr[:mid]
+ 
+        # into 2 halves
+        R = arr[mid:]
+ 
+        # Sorting the first half
+        mergeSort(L)
+ 
+        # Sorting the second half
+        mergeSort(R)
+ 
+        i = j = k = 0
+ 
+        # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+ 
+        # Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+ 
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+test10 = np.arange(10)
+test50 = np.arange(50)
+test100 = np.arange(100)
+test150 = np.arange(150)
+test200 = np.arange(200)
+test250 = np.arange(250)
+test300 = np.arange(300)
+test350 = np.arange(350)
+test400 = np.arange(400)
+test450 = np.arange(450)
+test500 = np.arange(500)
+
+np.random.shuffle(test10)
+np.random.shuffle(test50)
+np.random.shuffle(test100)
+np.random.shuffle(test150)
+np.random.shuffle(test200)
+np.random.shuffle(test250)
+np.random.shuffle(test300)
+np.random.shuffle(test350)
+np.random.shuffle(test400)
+np.random.shuffle(test450)
+np.random.shuffle(test500)
+
+is_times = []
+is_times.append(timeit.timeit("insertionSort(test10)",'from __main__ import insertionSort, test10', number = 10))
+is_times.append(timeit.timeit("insertionSort(test50)",'from __main__ import insertionSort, test50', number = 10))
+is_times.append(timeit.timeit("insertionSort(test100)",'from __main__ import insertionSort, test100', number = 10))
+is_times.append(timeit.timeit("insertionSort(test150)",'from __main__ import insertionSort, test150', number = 10))
+is_times.append(timeit.timeit("insertionSort(test200)",'from __main__ import insertionSort, test200', number = 10))
+is_times.append(timeit.timeit("insertionSort(test250)",'from __main__ import insertionSort, test250', number = 10))
+is_times.append(timeit.timeit("insertionSort(test300)",'from __main__ import insertionSort, test300', number = 10))
+is_times.append(timeit.timeit("insertionSort(test350)",'from __main__ import insertionSort, test350', number = 10))
+is_times.append(timeit.timeit("insertionSort(test400)",'from __main__ import insertionSort, test400', number = 10))
+is_times.append(timeit.timeit("insertionSort(test450)",'from __main__ import insertionSort, test450', number = 10))
+is_times.append(timeit.timeit("insertionSort(test500)",'from __main__ import insertionSort, test500', number = 10))
+
+np.random.shuffle(test10)
+np.random.shuffle(test50)
+np.random.shuffle(test100)
+np.random.shuffle(test150)
+np.random.shuffle(test200)
+np.random.shuffle(test250)
+np.random.shuffle(test300)
+np.random.shuffle(test350)
+np.random.shuffle(test400)
+np.random.shuffle(test450)
+np.random.shuffle(test500)
+
+ms_times = []
+ms_times.append(timeit.timeit("mergeSort(test10)",'from __main__ import mergeSort, test10', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test50)",'from __main__ import mergeSort, test50', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test100)",'from __main__ import mergeSort, test100', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test150)",'from __main__ import mergeSort, test150', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test200)",'from __main__ import mergeSort, test200', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test250)",'from __main__ import mergeSort, test250', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test300)",'from __main__ import mergeSort, test300', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test350)",'from __main__ import mergeSort, test350', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test400)",'from __main__ import mergeSort, test400', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test450)",'from __main__ import mergeSort, test450', number = 10))
+ms_times.append(timeit.timeit("mergeSort(test500)",'from __main__ import mergeSort, test500', number = 10))
+
+test_sizes = [10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+test_size_labels = ['10', '50', '100', '150', '200', '250', '300', '350', '400', '450', '500']
+
+ 
+x_axis = np.arange(len(test_size_labels))
+x_axis2 = np.arange(len(test_size_labels))
+
+plt.bar(x_axis - 0.2, is_times, edgecolor='black', width=0.4, label = 'Insertion Sort', color="green")
+plt.bar(x_axis2 + 0.2, ms_times, edgecolor='black', width=0.4, label = 'Merge Sort', color="white")
+ 
+plt.xticks(x_axis, test_sizes)
+plt.xlabel("Data Size")
+plt.ylabel("Time Taken")
+plt.title("Insertion Sort vs Merge Sort")
+plt.legend()
+plt.show()
